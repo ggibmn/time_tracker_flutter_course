@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key, required this.onSignOut}) : super(key: key);
 
   final VoidCallback onSignOut;
+
+  const HomePage({Key? key, required this.onSignOut}) : super(key: key);
 
   Future<void> _signOut() async {
     try {
