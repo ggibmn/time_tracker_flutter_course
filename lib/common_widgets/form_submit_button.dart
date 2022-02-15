@@ -4,7 +4,7 @@ import 'package:time_tracker_flutter_course/common_widgets/custom_raised_button.
 class FormSubmitButton extends CustomRaisedButton {
   FormSubmitButton({
     required String text,
-    required VoidCallback onPressed,
+    VoidCallback ? onPressed,
   }) : super(
           child: Text(
             text,
