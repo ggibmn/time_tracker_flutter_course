@@ -7,6 +7,10 @@ abstract class AuthBase {
 
   Future<User?> signInAnonymously();
 
+  Future<User?> signInWithEmailAndPassword(String email, String password);
+
+  Future<User?> createUserWithEmailAndPassword(String email, String password);
+
   Future<User?> signOut();
 
   Stream<User?> authStateChanges();
@@ -15,9 +19,6 @@ abstract class AuthBase {
 
   Future<User?> signInWithFacebook();
 
-  Future<User?> signInWithEmailAndPassword(String email, String password);
-
-  Future<User?> createUserWithEmailAndPassword(String email, String password);
 }
 
 class Auth implements AuthBase {
