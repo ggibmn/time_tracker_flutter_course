@@ -1,16 +1,35 @@
 import 'dart:async';
 
 import 'package:time_tracker_flutter_course/app/sign_in/email_sign_in_model.dart';
+import 'package:time_tracker_flutter_course/services/auth.dart';
 
 class EmailSignInBloc {
+  final AuthBase auth;
   final StreamController<EmailSignInModel> _modelController =
       StreamController<EmailSignInModel>();
+
+  EmailSignInBloc({required this.auth});
 
   Stream<EmailSignInModel> get modelStream => _modelController.stream;
   EmailSignInModel _model = EmailSignInModel();
 
   void dispose() {
     _modelController.close();
+  }
+
+  Future<void> submit() async {
+    updateWith(submitted: true, isLoading: true);
+    try {
+      if (_model == EmailSignInFormType.signIn) {
+        await auth.signInWithEmailAndPassword(_model.email, _model.password);
+      } else {
+        await auth.createUserWithEmailAndPassword(
+            _model.email, _model.password);
+      }
+    } catch (e) {
+      updateWith(isLoading: false);
+      rethrow;
+    }
   }
 
   void updateWith({
@@ -28,6 +47,6 @@ class EmailSignInBloc {
         isLoading: isLoading,
         submitted: submitted);
 //add updated model to _modelController
-  _modelController.add(_model);
+    _modelController.add(_model);
   }
 }
