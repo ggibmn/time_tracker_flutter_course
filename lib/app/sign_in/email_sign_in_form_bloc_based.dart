@@ -13,8 +13,7 @@ import 'package:time_tracker_flutter_course/services/auth.dart';
 import 'email_sign_in_model.dart';
 
 class EmailSignInFormBlocBased extends StatefulWidget {
-  EmailSignInFormBlocBased({required this.bloc});
-
+  const EmailSignInFormBlocBased({Key? key, required this.bloc}) : super(key: key);
   final EmailSignInBloc bloc;
 
   static Widget create(BuildContext context) {
@@ -62,7 +61,6 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   }
 
   void _emailEditingComplete(EmailSignInModel model) {
-    // print('email editing complete');
     final newFocus = model.emailValidator.isValid(model.email)
         ? _passwordFocusNode
         : _emailFocusNode;
@@ -78,25 +76,17 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   List<Widget> _buildChildren(EmailSignInModel model) {
     return [
       _buildEmailTextField(model),
-      SizedBox(
-        height: 8.0,
-      ),
+      SizedBox(height: 8.0),
       _buildPasswordTextField(model),
-      SizedBox(
-        height: 8.0,
-      ),
+      SizedBox(height: 8.0),
       FormSubmitButton(
-        onPressed: model.canSubmit ? _submit : null,
         text: model.primaryButtonText,
+        onPressed: model.canSubmit ? _submit : null,
       ),
-      SizedBox(
-        height: 8.0,
-      ),
+      SizedBox(height: 8.0),
       TextButton(
+        child: Text(model.secondaryButtonText),
         onPressed: !model.isLoading ? _toggleFormType : null,
-        child: Text(
-          model.secondaryButtonText,
-        ),
       ),
     ];
   }
@@ -112,8 +102,8 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       ),
       obscureText: true,
       textInputAction: TextInputAction.done,
-      onEditingComplete: _submit,
       onChanged: widget.bloc.updatePassword,
+      onEditingComplete: _submit,
     );
   }
 
@@ -130,8 +120,8 @@ class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onEditingComplete: () => _emailEditingComplete(model),
       onChanged: widget.bloc.updateEmail,
+      onEditingComplete: () => _emailEditingComplete(model),
     );
   }
 

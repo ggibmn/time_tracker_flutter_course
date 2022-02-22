@@ -4,12 +4,13 @@ import 'package:time_tracker_flutter_course/app/sign_in/validators.dart';
 enum EmailSignInFormType { signIn, register }
 
 class EmailSignInModel with EmailAndPasswordValidators {
-  EmailSignInModel(
-      {this.email = '',
-      this.password = '',
-      this.formType = EmailSignInFormType.signIn,
-      this.isLoading = false,
-      this.submitted = false});
+  EmailSignInModel({
+    this.email = '',
+    this.password = '',
+    this.formType = EmailSignInFormType.signIn,
+    this.isLoading = false,
+    this.submitted = false,
+  });
 
   final String email;
   final String password;
